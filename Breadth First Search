@@ -1,0 +1,53 @@
+import java.util.*;
+
+class GraphBFS {
+    private LinkedList<Integer> adjList[];
+
+    // Constructor to initialize graph
+    GraphBFS(int vertices) {
+        adjList = new LinkedList[vertices];
+        for (int i = 0; i < vertices; i++) {
+            adjList[i] = new LinkedList<>();
+        }
+    }
+
+    // Add edge to the graph
+    void addEdge(int source, int destination) {
+        adjList[source].add(destination);
+    }
+
+    // BFS function
+    void bfs(int startVertex) {
+        boolean visited[] = new boolean[adjList.length];
+        LinkedList<Integer> queue = new LinkedList<>();
+
+        visited[startVertex] = true;
+        queue.add(startVertex);
+
+        while (!queue.isEmpty()) {
+            int vertex = queue.poll();
+            System.out.print(vertex + " ");
+
+            for (int adj : adjList[vertex]) {
+                if (!visited[adj]) {
+                    visited[adj] = true;
+                    queue.add(adj);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        GraphBFS g = new GraphBFS(4);
+
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 0);
+        g.addEdge(2, 3);
+        g.addEdge(3, 3);
+
+        System.out.println("BFS traversal starting from vertex 2:");
+        g.bfs(2);
+    }
+}
