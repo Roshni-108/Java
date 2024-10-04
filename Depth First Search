@@ -1,0 +1,50 @@
+import java.util.*;
+
+class GraphDFS {
+    private LinkedList<Integer> adjList[];
+
+    // Constructor to initialize graph
+    GraphDFS(int vertices) {
+        adjList = new LinkedList[vertices];
+        for (int i = 0; i < vertices; i++) {
+            adjList[i] = new LinkedList<>();
+        }
+    }
+
+    // Add edge to the graph
+    void addEdge(int source, int destination) {
+        adjList[source].add(destination);
+    }
+
+    // DFS utility function
+    void dfsUtil(int vertex, boolean[] visited) {
+        visited[vertex] = true;
+        System.out.print(vertex + " ");
+
+        for (int adj : adjList[vertex]) {
+            if (!visited[adj]) {
+                dfsUtil(adj, visited);
+            }
+        }
+    }
+
+    // DFS function
+    void dfs(int startVertex) {
+        boolean[] visited = new boolean[adjList.length];
+        dfsUtil(startVertex, visited);
+    }
+
+    public static void main(String[] args) {
+        GraphDFS g = new GraphDFS(4);
+
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 0);
+        g.addEdge(2, 3);
+        g.addEdge(3, 3);
+
+        System.out.println("DFS traversal starting from vertex 2:");
+        g.dfs(2);
+    }
+}
